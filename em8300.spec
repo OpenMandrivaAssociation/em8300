@@ -1,6 +1,6 @@
 
 %define name	em8300
-%define version	0.16.1
+%define version	0.16.2
 %define rel	1
 %define snapshot 0
 
@@ -75,7 +75,7 @@ package em8300.
 %setup -q
 %endif
 
-echo > README.urpmi <<EOF
+echo > README.install.urpmi <<EOF
 EM8300-devices require a non-free microcode to operate. If you
 have not already done so, you have to download
 http://dxr3.sourceforge.net/download/em8300.bin to /lib/firmware/.
@@ -132,7 +132,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README AUTHORS COPYING ChangeLog modules/README-* modules/INSTALL README.urpmi
+%doc README AUTHORS COPYING ChangeLog modules/README-* modules/INSTALL README.install.urpmi
 %config(noreplace) %{_sysconfdir}/udev/rules.d/*
 %{_bindir}/*
 %{_datadir}/em8300
