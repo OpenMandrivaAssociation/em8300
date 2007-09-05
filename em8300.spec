@@ -1,11 +1,11 @@
 
 %define name	em8300
-%define version	0.16.2
+%define version	0.16.3
 %define rel	1
 %define snapshot 0
 
 %if %snapshot
-%define release	%mkrel %snapshot.%rel
+%define release	%mkrel 0.%snapshot.%rel
 %else
 %define release %mkrel %rel
 %endif
@@ -15,9 +15,13 @@ Version:	%version
 Release:	%release
 URL:		http://dxr3.sourceforge.net/
 %if %snapshot
+# cvs -d:pserver:anonymous@dxr3.cvs.sourceforge.net:/cvsroot/dxr3 login
+# cvs -z3 -d:pserver:anonymous@dxr3.cvs.sourceforge.net:/cvsroot/dxr3 co -P em8300
+# rm em8300/modules/em8300.uc
+# tar -cjf em8300-nofirmware-$(date +%Y%m%d).tar.bz2 em8300
 Source0:	%{name}-nofirmware-%{snapshot}.tar.bz2
 %else
-Source0:	%{name}-nofirmware-%{version}.tar.bz2
+Source0:	http://downloads.sourceforge.net/dxr3/%{name}-nofirmware-%{version}.tar.gz
 %endif
 Group:		System/Kernel and hardware
 License:	GPL
@@ -59,6 +63,7 @@ Summary: Linux kernel module for Hollywood plus / DXR3 devices
 Group: System/Kernel and hardware
 Requires(post): dkms
 Requires(preun): dkms
+Requires: em8300
 
 %description -n dkms-%{name}
 This package contains the kernel module for the Hollywood plus
@@ -118,9 +123,9 @@ AUTOINSTALL=yes
 EOF
 
 %post -n dkms-%{name}
-dkms add     -m %{name} -v %{version}-%{release} --rpm_safe_upgrade
-dkms build   -m %{name} -v %{version}-%{release} --rpm_safe_upgrade
-dkms install -m %{name} -v %{version}-%{release} --rpm_safe_upgrade
+dkms add     -m %{name} -v %{version}-%{release} --rpm_safe_upgrade &&
+dkms build   -m %{name} -v %{version}-%{release} --rpm_safe_upgrade &&
+dkms install -m %{name} -v %{version}-%{release} --rpm_safe_upgrade --force
 true
 
 %preun -n dkms-%{name}
