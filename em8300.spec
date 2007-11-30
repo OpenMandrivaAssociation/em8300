@@ -2,10 +2,10 @@
 %define name	em8300
 %define version	0.16.3
 %define rel	1
-%define snapshot 0
+%define snapshot 20071130
 
 %if %snapshot
-%define release	%mkrel 0.%snapshot.%rel
+%define release	%mkrel 1.%snapshot.%rel
 %else
 %define release %mkrel %rel
 %endif
