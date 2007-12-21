@@ -28,6 +28,7 @@ License:	GPL
 BuildRequires:	gtk2-devel
 # for /usr/share/alsa/alsa.conf
 BuildRequires:	libalsa-data
+BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Summary:	Utilities for Hollywood plus / DXR3 device driver for Linux
 Provides:	perl(em8300)
 
