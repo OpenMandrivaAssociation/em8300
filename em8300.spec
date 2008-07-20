@@ -2,10 +2,10 @@
 %define name	em8300
 %define version	0.17.0
 %define rel	1
-%define snapshot 0
+%define snapshot 611
 
 %if %snapshot
-%define release	%mkrel 1.%snapshot.%rel
+%define release	%mkrel 1.hg%snapshot.%rel
 %else
 %define release %mkrel %rel
 %endif
@@ -15,10 +15,8 @@ Version:	%version
 Release:	%release
 URL:		http://dxr3.sourceforge.net/
 %if %snapshot
-# cvs -d:pserver:anonymous@dxr3.cvs.sourceforge.net:/cvsroot/dxr3 login
-# cvs -z3 -d:pserver:anonymous@dxr3.cvs.sourceforge.net:/cvsroot/dxr3 co -P em8300
-# rm em8300/modules/em8300.uc
-# tar -cjf em8300-nofirmware-$(date +%Y%m%d).tar.bz2 em8300
+# rm -rf em8300; hg clone http://dxr3.sourceforge.net/hg/em8300-nboullis em8300
+# cd em8300; hg archive -ttbz2 -Xmodules/em8300.uc ../em8300-nofirmware-$(hg tip --template {rev}).tar.bz2; cd ..
 Source0:	%{name}-nofirmware-%{snapshot}.tar.bz2
 %else
 Source0:	http://downloads.sourceforge.net/dxr3/%{name}-nofirmware-%{version}.tar.gz
@@ -31,6 +29,7 @@ BuildRequires:	libalsa-data
 BuildRoot:	%{_tmppath}/%{name}-%{version}-buildroot
 Summary:	Utilities for Hollywood plus / DXR3 device driver for Linux
 Provides:	perl(em8300)
+Requires:	kmod(em8300)
 
 %description
 This package contains utilities that can be used by packages
@@ -75,7 +74,7 @@ package em8300.
 
 %prep
 %if %snapshot
-%setup -q -n %name
+%setup -q -n %name-nofirmware-%snapshot
 %else
 %setup -q
 %endif
@@ -85,6 +84,12 @@ EM8300-devices require a non-free microcode to operate. If you
 have not already done so, you have to download
 http://dxr3.sourceforge.net/download/em8300.bin to /lib/firmware/.
 EOF
+
+if [ -x modules/update_em8300_version.sh ]; then # is snapshot
+	# Run by make during module build if it exists, uses hg which users do not have.
+	rm modules/update_em8300_version.sh
+	echo "#define EM8300_VERSION \"hg-rev-%snapshot\"" > modules/em8300_version.h
+fi
 
 %build
 %if %snapshot
@@ -137,7 +142,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root)
-%doc README AUTHORS COPYING ChangeLog modules/README-* modules/INSTALL README.install.urpmi
+%doc README AUTHORS ChangeLog.old modules/README-* modules/INSTALL README.install.urpmi
 %config(noreplace) %{_sysconfdir}/udev/rules.d/*
 %{_bindir}/*
 %{_datadir}/em8300
