@@ -5,7 +5,7 @@
 %define snapshot 611
 
 %if %snapshot
-%define release	%mkrel 1.hg%snapshot.%rel
+%define release	%mkrel 2.hg%snapshot.%rel
 %else
 %define release %mkrel %rel
 %endif
