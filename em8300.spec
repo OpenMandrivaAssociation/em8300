@@ -1,7 +1,7 @@
 
 %define name	em8300
 %define version	0.18.0
-%define rel	1
+%define rel	2
 %define snapshot 0
 
 %if %snapshot
