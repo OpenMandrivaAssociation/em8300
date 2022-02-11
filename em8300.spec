@@ -1,3 +1,5 @@
+%global optflags %{optflags} -fcommon
+
 Summary:	Utilities for Hollywood plus / DXR3 device driver for Linux
 Name:		em8300
 Version:	0.18.0
@@ -47,7 +49,7 @@ have the driver in your kernel. You should also install
 package em8300.
 
 %prep
-%setup -q
+%autosetup -p1
 
 echo > README.install.urpmi <<EOF
 EM8300-devices require a non-free microcode to operate. If you
@@ -62,8 +64,8 @@ if [ -x modules/update_em8300_version.sh ]; then # is snapshot
 fi
 
 %build
-%configure2_5x
-%make LIBS="-lX11 -lm"
+%configure
+%make_build  LIBS="-lX11 -lm"
 
 %install
 %makeinstall_std
