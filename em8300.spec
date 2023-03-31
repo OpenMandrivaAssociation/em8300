@@ -3,7 +3,7 @@
 Summary:	Utilities for Hollywood plus / DXR3 device driver for Linux
 Name:		em8300
 Version:	0.18.0
-Release:	14
+Release:	15
 Group:		System/Kernel and hardware
 License:	GPLv2
 Url:		http://dxr3.sourceforge.net/
