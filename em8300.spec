@@ -6,7 +6,7 @@ Version:	0.18.0
 Release:	15
 Group:		System/Kernel and hardware
 License:	GPLv2
-Url:		http://dxr3.sourceforge.net/
+Url:		https://dxr3.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/dxr3/%{name}-nofirmware-%{version}.tar.gz
 BuildRequires:	pkgconfig(gtk+-2.0)
 # for /usr/share/alsa/alsa.conf
