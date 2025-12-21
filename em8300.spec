@@ -8,6 +8,11 @@ Group:		System/Kernel and hardware
 License:	GPLv2
 Url:		https://dxr3.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/dxr3/%{name}-nofirmware-%{version}.tar.gz
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	pkgconfig(gtk+-2.0)
 # for /usr/share/alsa/alsa.conf
 BuildRequires:	alsa-lib
